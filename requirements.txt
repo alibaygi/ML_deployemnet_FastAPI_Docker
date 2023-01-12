@@ -1,1 +1,9 @@
 scikit-learn==1.1.3
+fastapi==0.88.0
+pydantic==1.10.2
+streamlit==1.13.0
+numpy==1.23.2
+requests
+json
+pathlib
+pickle
