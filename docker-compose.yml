@@ -1,0 +1,31 @@
+# Run this Docker compose file using `docker-compose up -d --build`
+# No need specify version 2 or 3 in latest Compose specification
+#when done http://localhost:8000, and  http://localhost:8501
+services:
+  # Backend service (FastAPI and H2O Model loaded from MLflow Tracking)
+  backend:
+    build: mlapp
+    image: social_net_backend:latest     
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - ./mlapp:/app/backend
+    networks:
+      - project_network
+
+  # Frontend service (Streamlit UI)
+  frontend:
+    build: uiapp
+    image: social_net_frontend:latest
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./uiapp:/app/frontend
+    depends_on: 
+    - backend
+    networks:
+      - project_network
+
+networks:
+  project_network:
